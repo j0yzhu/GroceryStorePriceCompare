@@ -1,15 +1,15 @@
 import requests
 import json
 
+
 class Product:
-    def __init__(self,
-                 name,
-                 price):
+    def __init__(self, name, price, image):
         self.name = name
         self.price = price
+        self.image = image
 
     def __repr__(self):
-        return f'Product({self.name}, {self.price})'
+        return f'Product({self.name}, {self.price}, {self.image})'
 
 
 def countdown_search(search_term):
@@ -29,12 +29,12 @@ def countdown_search(search_term):
 
     j = response.json()
 
-    j = j['products']['items']
+    j = j['products']['items']['images']
     products = []
 
     for dict in j:
         products.append(
-            Product(dict['name'], dict['price']['salePrice'])
+            Product(dict['name'], dict['price']['salePrice'], dict['image'])
         )
 
     return products
@@ -75,12 +75,12 @@ def newworld_search(search_term):
     j = response.json()
 
 
-    j = j['data']['products']
+    j = j['data']['products']['images']
     products = []
 
     for dict in j:
         products.append(
-            Product(dict['name'], dict['price']/100)
+            Product(dict['name'], dict['price']/100, dict['image'])
         )
 
     return products
@@ -118,17 +118,19 @@ def paknsave_search(search_term):
     response = requests.get('https://www.paknsave.co.nz/next/api/products/search', params=params, cookies={},
                             headers=headers)
 
+
     j = response.json()
 
-    j = j['data']['products']
+    j = j['data']['products']['images']
     products = []
 
     for dict in j:
         products.append(
-            Product(dict['name'], dict['price']/100)
+            Product(dict['name'], dict['price']/100, dict['image'])
         )
 
     return products
+
 
 result = paknsave_search('eggs')
 
