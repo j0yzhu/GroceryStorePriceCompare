@@ -11,6 +11,7 @@ class Product:
     def __repr__(self):
         return f'Product({self.name}, {self.price})'
 
+
 def countdown_search(search_term):
     headers = {
         'accept': 'application/json, text/plain, */*',
