@@ -33,7 +33,7 @@ def countdown_search(search_term):
 
     for dict in j:
         products.append(
-            Product(dict['name'], dict['price']['salePrice'])
+            Product(dict['name'], dict['price']['salePrice'], dict['images']['big'])
         )
 
     return products
@@ -78,8 +78,11 @@ def newworld_search(search_term):
     products = []
 
     for dict in j:
+        api_image_string = dict['productId']
+        product_id = api_image_string.split("-")[0]
+        image_url = f"https://a.fsimg.co.nz/product/retail/fan/image/200x200/{product_id}.png"
         products.append(
-            Product(dict['name'], dict['price']/100, dict['productId'])
+            Product(dict['name'], dict['price']/100, image_url)
         )
 
     return products
@@ -124,14 +127,17 @@ def paknsave_search(search_term):
     products = []
 
     for dict in j:
+        api_image_string = dict['productId']
+        product_id = api_image_string.split("-")[0]
+        image_url = f"https://a.fsimg.co.nz/product/retail/fan/image/200x200/{product_id}.png"
         products.append(
-            Product(dict['name'], dict['price']/100, dict['productId'])
+            Product(dict['name'], dict['price']/100, image_url)
         )
 
     return products
 
+if __name__ == 'main':
+    result = paknsave_search('eggs')
 
-result = paknsave_search('eggs')
-
-for product in result:
-    print(product)
+    for product in result:
+        print(product)
