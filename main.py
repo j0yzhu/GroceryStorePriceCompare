@@ -1,6 +1,8 @@
 import requests
 import json
 
+from typing import List
+
 class Product:
     def __init__(self, name, price, image):
         self.name = name
@@ -11,7 +13,7 @@ class Product:
         return f'Product({self.name}, {self.price}, {self.image})'
 
 
-def countdown_search(search_term):
+def countdown_search(search_term: str = "") -> List[Product]:
     headers = {
         'accept': 'application/json, text/plain, */*',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
@@ -51,7 +53,7 @@ def get_newworld_access_token():
 
     return j['access_token']
 
-def newworld_search(search_term):
+def newworld_search(search_term: str = "") -> List[Product]:
     access_token = get_newworld_access_token()
 
     headers = {
@@ -100,7 +102,7 @@ def get_paknsave_access_token():
 
     return j['access_token']
 
-def paknsave_search(search_term):
+def paknsave_search(search_term: str = "") -> List[Product]:
     access_token = get_paknsave_access_token()
 
     headers = {
@@ -136,8 +138,9 @@ def paknsave_search(search_term):
 
     return products
 
-if __name__ == 'main':
-    result = paknsave_search('eggs')
+if __name__ == '__main__':
+    search_query = input("Search:")
+    result = paknsave_search(search_query)
 
     for product in result:
         print(product)
