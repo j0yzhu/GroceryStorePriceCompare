@@ -1,7 +1,6 @@
 import requests
 import json
 
-
 class Product:
     def __init__(self, name, price, image):
         self.name = name
@@ -29,12 +28,12 @@ def countdown_search(search_term):
 
     j = response.json()
 
-    j = j['products']['items']['images']
+    j = j['products']['items']
     products = []
 
     for dict in j:
         products.append(
-            Product(dict['name'], dict['price']['salePrice'], dict['image'])
+            Product(dict['name'], dict['price']['salePrice'])
         )
 
     return products
@@ -75,12 +74,12 @@ def newworld_search(search_term):
     j = response.json()
 
 
-    j = j['data']['products']['images']
+    j = j['data']['products']
     products = []
 
     for dict in j:
         products.append(
-            Product(dict['name'], dict['price']/100, dict['image'])
+            Product(dict['name'], dict['price']/100, dict['productId'])
         )
 
     return products
@@ -121,12 +120,12 @@ def paknsave_search(search_term):
 
     j = response.json()
 
-    j = j['data']['products']['images']
+    j = j['data']['products']
     products = []
 
     for dict in j:
         products.append(
-            Product(dict['name'], dict['price']/100, dict['image'])
+            Product(dict['name'], dict['price']/100, dict['productId'])
         )
 
     return products
