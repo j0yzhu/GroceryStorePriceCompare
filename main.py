@@ -138,9 +138,16 @@ def paknsave_search(search_term: str = "") -> List[Product]:
 
     return products
 
-if __name__ == '__main__':
-    search_query = input("Search:")
-    result = paknsave_search(search_query)
+
+def perform_search(search_function, search_prompt):
+    search_query = input(search_prompt)
+    result = search_function(search_query)
 
     for product in result:
         print(product)
+
+
+if __name__ == '__main__':
+    perform_search(countdown_search, "Countdown Search:")
+    perform_search(newworld_search, "New World Search:")
+    perform_search(paknsave_search, "PaknSave Search:")
